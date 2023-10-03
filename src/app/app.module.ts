@@ -12,11 +12,13 @@ import { TaskFormComponent } from './task-form/task-form.component';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
+import { TodosListComponent } from './todos-list/todos-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskFormComponent
+    TaskFormComponent,
+    TodosListComponent
   ],
   imports: [
     BrowserModule,
