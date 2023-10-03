@@ -1,0 +1,8 @@
+<form (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Enter new task</mat-label>
+      <input name="taskInput" [formControl]="task" matInput type="text"/>
+      <mat-error *ngIf="task.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Add Task</button>
+</form>
