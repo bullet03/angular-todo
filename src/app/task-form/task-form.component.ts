@@ -7,10 +7,10 @@ import { FormControl, Validators } from "@angular/forms";
   styleUrls: ['./task-form.component.css']
 })
 export class TaskFormComponent {
-  task = new FormControl('', [Validators.required, Validators.minLength(1)]);
+  task = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
   onSubmit() {
-    console.log('submited');
+    console.log('submitted');
   }
 
   getErrorMessage() {
@@ -18,6 +18,6 @@ export class TaskFormComponent {
       return 'You must enter a value';
     }
 
-    return this.task.hasError('minLength') ? 'Too short task description' : '';
+    return this.task.hasError('minlength') ? 'Too short, should be at least 3 symbols' : '';
   }
 }
