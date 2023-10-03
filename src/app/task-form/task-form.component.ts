@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-task-form',
@@ -6,9 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./task-form.component.css']
 })
 export class TaskFormComponent {
-  task = "Test task";
+  task = new FormControl('', [Validators.required, Validators.minLength(1)]);
 
-  submitted = false;
+  onSubmit() {
+    console.log('submited');
+  }
 
-  onSubmit() { this.submitted = true; }
+  getErrorMessage() {
+    if (this.task.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.task.hasError('minLength') ? 'Too short task description' : '';
+  }
 }

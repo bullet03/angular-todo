@@ -1,8 +1,10 @@
-<form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+<form (ngSubmit)="onSubmit()" #taskForm="ngForm">
   <mat-form-field>
-    <mat-label>Enter your email</mat-label>
-    <input matInput placeholder="pat@example.com" required>
+    <mat-label>Enter new task</mat-label>
+      <input name="taskInput" [formControl]="task" required matInput />
+      <mat-error *ngIf="task.invalid">{{getErrorMessage()}}</mat-error>
   </mat-form-field>
-  <button mat-button color="primary">Primary</button>
-
+  <button mat-raised-button color="primary" type="submit">Add Task</button>
 </form>
+
+<div>{{ task.value }}</div>
