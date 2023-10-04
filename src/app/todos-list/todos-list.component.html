@@ -1,9 +1,10 @@
 <!--<div *ngFor="let todo of todosList">{{ todo }}</div>-->
-
+<app-task-form></app-task-form>
 <mat-grid-list cols="1" rowHeight="100px">
   <mat-grid-tile *ngFor="let todo of todosList">
     <mat-card>
-      <mat-card-content>{{ todo }}</mat-card-content>
+      <mat-card-content>{{ todo.name }}</mat-card-content>
     </mat-card>
+    <button mat-raised-button color="warn" (click)="deleteTodo(todo)">Delete Todo</button>
   </mat-grid-tile>
 </mat-grid-list>

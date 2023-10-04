@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TodoService } from "../todo.service";
+import { Todo } from "../todo";
 
 @Component({
   selector: 'app-todos-list',
@@ -7,7 +8,7 @@ import { TodoService } from "../todo.service";
   styleUrls: ['./todos-list.component.css']
 })
 export class TodosListComponent {
-  todosList: string[] = [];
+  todosList: Todo[] = [];
   constructor(private todoService: TodoService) {}
 
   ngOnInit() {
@@ -17,5 +18,9 @@ export class TodosListComponent {
 
   getTodosList() {
     this.todosList = this.todoService.getTodos()
+  }
+
+  deleteTodo(todo: Todo) {
+    this.todosList = this.todoService.deleteTodo(todo);
   }
 }
