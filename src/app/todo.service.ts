@@ -11,4 +11,8 @@ export class TodoService {
   getTodos(): string[] {
     return TODOS;
   }
+
+  addTodo(todo: string): void {
+    TODOS.push(todo);
+  }
 }

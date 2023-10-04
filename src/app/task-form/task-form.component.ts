@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from "@angular/forms";
+import { TodoService } from "../todo.service";
 
 @Component({
   selector: 'app-task-form',
@@ -9,8 +10,10 @@ import { FormControl, Validators } from "@angular/forms";
 export class TaskFormComponent {
   task = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
+  constructor(private todoService: TodoService) {
+  }
   onSubmit() {
-    console.log('submitted');
+    this.todoService.addTodo(this.task.value!);
   }
 
   getErrorMessage() {

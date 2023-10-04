@@ -1,1 +1,9 @@
-<div *ngFor="let todo of todosList">{{ todo }}</div>
+<!--<div *ngFor="let todo of todosList">{{ todo }}</div>-->
+
+<mat-grid-list cols="1" rowHeight="100px">
+  <mat-grid-tile *ngFor="let todo of todosList">
+    <mat-card>
+      <mat-card-content>{{ todo }}</mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
