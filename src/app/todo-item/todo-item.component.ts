@@ -12,12 +12,14 @@ export class TodoItemComponent {
   @Input() todoItem!: Todo;
   @Output() deleteTodoEvent = new EventEmitter<Todo>();
   @Output() updateTodoEvent = new EventEmitter<Todo>();
+
   constructor(private todoService: TodoService) {}
+
   deleteTodo(todo: Todo) {
     this.deleteTodoEvent.emit(todo);
   }
 
-  updateTodo(todo: Todo) {
-    this.updateTodoEvent.emit(todo);
+  updateTodo(todo: Todo, val: string) {
+    this.updateTodoEvent.emit({id: todo.id, name: val});
   }
 }

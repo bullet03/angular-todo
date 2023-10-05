@@ -1,6 +1,11 @@
 <mat-card>
   <mat-card-content>
-    <input  type="text" value="{{ todoItem.name }}" (change)="updateTodo(todoItem)">
+    <input
+      type="text"
+      #inputRef
+      value="{{ todoItem.name }}"
+      (change)="updateTodo(todoItem, inputRef.value)"
+    >
   </mat-card-content>
 </mat-card>
 <button mat-raised-button color="warn" (click)="deleteTodo(todoItem)">Delete Todo</button>
