@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { FormControl, Validators } from "@angular/forms";
 import { TodoService } from "../todo.service";
 import { v4 as uuidv4 } from 'uuid';
@@ -9,13 +9,13 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./task-form.component.css']
 })
 export class TaskFormComponent {
-  @Input()
+  @Output() newItemEvent = new EventEmitter<string>();
   task = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
   constructor(private todoService: TodoService) {}
 
   onSubmit() {
-    this.todoService.addTodo({id: uuidv4(), name: this.task.value!});
+    this.newItemEvent.emit(this.task.value!);
   }
 
   getErrorMessage() {

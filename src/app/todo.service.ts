@@ -6,18 +6,24 @@ import { Todo } from "./todo";
   providedIn: 'root'
 })
 export class TodoService {
+  todos: Todo[] = [];
+  constructor() {
+    this.init();
+  }
 
-  constructor() { }
+  init() {
+    this.todos = TODOS;
+  }
 
   getTodos(): Todo[] {
-    return TODOS;
+    return this.todos;
   }
 
   addTodo(todo: Todo): void {
-    TODOS.push(todo);
+    this.todos.push(todo);
   }
 
-  deleteTodo(todo: Todo): Todo[] {
-    return TODOS.filter(({name, id}) => id !== todo.id);
+  deleteTodo(todo: Todo): void {
+    this.todos = this.todos.filter(({name, id}) => id !== todo.id)
   }
 }

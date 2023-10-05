@@ -1,5 +1,4 @@
-<!--<div *ngFor="let todo of todosList">{{ todo }}</div>-->
-<app-task-form></app-task-form>
+<app-task-form (newItemEvent)="addTodo($event)"></app-task-form>
 <mat-grid-list cols="1" rowHeight="100px">
   <mat-grid-tile *ngFor="let todo of todosList">
     <mat-card>
