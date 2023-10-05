@@ -29,4 +29,9 @@ export class TodosListComponent {
     this.todoService.addTodo({id: uuidv4(), name: todoName });
     this.getTodosList();
   }
+
+  updateTodo(todo: Todo) {
+    this.todoService.updateTodo(todo);
+    this.getTodosList();
+  }
 }

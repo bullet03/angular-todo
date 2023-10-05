@@ -15,12 +15,14 @@ import { MatCardModule } from "@angular/material/card";
 import { AppComponent } from './app.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TodosListComponent } from './todos-list/todos-list.component';
+import { TodoItemComponent } from './todo-item/todo-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskFormComponent,
-    TodosListComponent
+    TodosListComponent,
+    TodoItemComponent
   ],
   imports: [
     BrowserModule,
