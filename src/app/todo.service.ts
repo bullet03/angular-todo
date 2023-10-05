@@ -16,6 +16,7 @@ export class TodoService {
   }
 
   getTodos(): Todo[] {
+    console.log(this.todos, 'this todos');
     return this.todos;
   }
 
@@ -25,5 +26,14 @@ export class TodoService {
 
   deleteTodo(todo: Todo): void {
     this.todos = this.todos.filter(({name, id}) => id !== todo.id)
+  }
+
+  updateTodo(todoObj: Todo): void {
+    this.todos = this.todos.map((todo) => {
+      if (todo.id === todoObj.id) {
+        return todoObj;
+      }
+      return todo;
+    });
   }
 }

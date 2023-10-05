@@ -1,9 +1,6 @@
 <app-task-form (newItemEvent)="addTodo($event)"></app-task-form>
 <mat-grid-list cols="1" rowHeight="100px">
   <mat-grid-tile *ngFor="let todo of todosList">
-    <mat-card>
-      <mat-card-content>{{ todo.name }}</mat-card-content>
-    </mat-card>
-    <button mat-raised-button color="warn" (click)="deleteTodo(todo)">Delete Todo</button>
+    <app-todo-item [todoItem]="todo" (updateTodoEvent)="updateTodo(todo)" (deleteTodoEvent)="deleteTodo(todo)"></app-todo-item>
   </mat-grid-tile>
 </mat-grid-list>
