@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, Output} from '@angular/core';
 import { TodoService } from "../todo.service";
+import { Todo } from "../todo";
+import {v4 as uuidv4} from "uuid";
 
 @Component({
   selector: 'app-todos-list',
@@ -7,15 +9,24 @@ import { TodoService } from "../todo.service";
   styleUrls: ['./todos-list.component.css']
 })
 export class TodosListComponent {
-  todosList: string[] = [];
+  todosList: Todo[] = [];
   constructor(private todoService: TodoService) {}
 
   ngOnInit() {
     this.getTodosList();
-    console.log(this.todosList, 'todoList')
   }
 
   getTodosList() {
-    this.todosList = this.todoService.getTodos()
+    this.todosList = this.todoService.getTodos();
+  }
+
+  deleteTodo(todo: Todo) {
+    this.todoService.deleteTodo(todo);
+    this.getTodosList();
+  }
+
+  addTodo(todoName: string) {
+    this.todoService.addTodo({id: uuidv4(), name: todoName });
+    this.getTodosList();
   }
 }

@@ -4,5 +4,12 @@
       <input name="taskInput" [formControl]="task" matInput type="text"/>
       <mat-error *ngIf="task.invalid">{{getErrorMessage()}}</mat-error>
   </mat-form-field>
-  <button mat-raised-button color="primary" type="submit" [disabled]="task.value!.length < 3">Add Task</button>
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="task.value!.length < 3"
+  >
+    Add Task
+  </button>
 </form>
