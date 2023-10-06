@@ -1,11 +1,27 @@
 <mat-card>
   <mat-card-content>
-    <input
-      type="text"
-      #inputRef
-      value="{{ todoItem.name }}"
-      (change)="updateTodo(todoItem, inputRef.value)"
-    >
+    <mat-checkbox [checked]="isChecked" (click)="onCheckboxChange()" color="primary">Done</mat-checkbox>
+    <mat-form-field>
+      <mat-label>Input</mat-label>
+      <input
+        matInput
+        [ngClass]="setClasses()"
+        type="text"
+        #inputRef
+        (change)="updateTodo(todoItem, inputRef.value)"
+        [formControl]="todoItemInput"
+        [attr.disabled]="isDisabled"
+      >
+      <mat-error *ngIf="todoItemInput.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Priorities</mat-label>
+      <select matNativeControl required (change)="onSelectChange($event)" [disabled]="isChecked">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+    </mat-form-field>
   </mat-card-content>
 </mat-card>
 <button mat-raised-button color="warn" (click)="deleteTodo(todoItem)">Delete Todo</button>
