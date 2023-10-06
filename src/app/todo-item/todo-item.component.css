@@ -1,0 +1,16 @@
+.textDepricated {
+  color: grey;
+  text-decoration: line-through;
+}
+
+.high {
+  background-color: red;
+}
+
+.medium {
+  background-color: yellow;
+}
+
+.low {
+  background-color: green;
+}

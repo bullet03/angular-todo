@@ -1,4 +1,4 @@
-import {Component, Output} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import { TodoService } from "../todo.service";
 import { Todo } from "../todo";
 import {v4 as uuidv4} from "uuid";
@@ -8,7 +8,7 @@ import {v4 as uuidv4} from "uuid";
   templateUrl: './todos-list.component.html',
   styleUrls: ['./todos-list.component.css']
 })
-export class TodosListComponent {
+export class TodosListComponent implements OnInit  {
   todosList: Todo[] = [];
   constructor(private todoService: TodoService) {}
 

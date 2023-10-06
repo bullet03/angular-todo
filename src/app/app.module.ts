@@ -11,11 +11,13 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatCardModule } from "@angular/material/card";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 import { AppComponent } from './app.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TodosListComponent } from './todos-list/todos-list.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
+
 
 @NgModule({
   declarations: [
@@ -26,16 +28,17 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     CommonModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
     MatGridListModule,
     MatCardModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
