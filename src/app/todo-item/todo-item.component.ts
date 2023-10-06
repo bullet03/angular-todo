@@ -1,5 +1,5 @@
-import {Component, ElementRef, EventEmitter, Input, Output} from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {Todo} from "../todo";
 import {TodoService} from "../todo.service";
 
@@ -8,7 +8,7 @@ import {TodoService} from "../todo.service";
   templateUrl: './todo-item.component.html',
   styleUrls: ['./todo-item.component.css']
 })
-export class TodoItemComponent {
+export class TodoItemComponent implements OnInit {
   @Input() todoItemsList: Todo[] = [];
   @Input() todoItem!: Todo;
   @Output() deleteTodoEvent = new EventEmitter<Todo>();
@@ -18,9 +18,16 @@ export class TodoItemComponent {
   isDisabled: true | null =  null;
   taskStatus: string = 'low';
 
-  todoItemInput = new FormControl('SOME_INIT_DATA', [Validators.required, Validators.minLength(3)]);
+  todoForm: FormGroup = new FormGroup({
+    todoItemForm: new FormControl('', [Validators.required, Validators.minLength(3)])
+  });
 
-  constructor(private todoService: TodoService) {}
+  ngOnInit() {
+    this.todoForm.setValue({todoItemForm: this.todoItem.name});
+  }
+
+  constructor(private todoService: TodoService) {
+  }
 
   deleteTodo(todo: Todo) {
     this.deleteTodoEvent.emit(todo);
@@ -64,10 +71,10 @@ export class TodoItemComponent {
   }
 
   getErrorMessage() {
-    if (this.todoItemInput.hasError('required')) {
+    if (this.todoForm.hasError('required')) {
       return 'You must enter a value';
     }
 
-    return this.todoItemInput.hasError('minlength') ? 'Too short, should be at least 3 symbols' : '';
+    return this.todoForm.hasError('minlength') ? 'Too short, should be at least 3 symbols' : '';
   }
 }
