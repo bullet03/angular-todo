@@ -2,19 +2,13 @@
   <mat-card-content>
     <form [formGroup]="todoForm">
       <mat-checkbox [checked]="isChecked" (click)="onCheckboxChange()" color="primary">Done</mat-checkbox>
-      <mat-form-field>
-        <mat-label>Input</mat-label>
-        <input
-          matInput
-          [ngClass]="setClasses()"
-          type="text"
-          #inputRef
-          (change)="updateTodo(todoItem, inputRef.value)"
-          formControlName="todoItemForm"
-          [attr.disabled]="isDisabled"
-        >
-        <mat-error *ngIf="todoForm.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
+      <app-todo-edit
+        [todoFormChild]="todoForm"
+        (getErrorMessageChild)="getErrorMessage()"
+        [isDisabledChild]="isDisabled"
+        (updateClassesChild)="setClasses()"
+      >
+      </app-todo-edit>
       <mat-form-field>
         <mat-label>Priorities</mat-label>
         <select matNativeControl required (change)="onSelectChange($event)" [disabled]="isChecked">
