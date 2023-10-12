@@ -1,8 +1,7 @@
 <div [ngClass]="'wrapper'">
-    <form [formGroup]="todoForm" [ngClass]="'formContainer'">
+    <form [ngClass]="'formContainer'">
       <mat-checkbox [checked]="isChecked" (click)="onCheckboxChange()" color="primary">Done</mat-checkbox>
       <app-todo-edit
-        [todoFormChild]="todoForm"
         [isDisabledChild]="isDisabled"
         [todoItemChild]="todoItem"
         (updateTodoChildEvent)="updateTodo($event)"

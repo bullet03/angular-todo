@@ -1,26 +1,26 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Todo} from "../todo";
-import {FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-todo-edit',
   templateUrl: './todo-edit.component.html',
   styleUrls: ['./todo-edit.component.css']
 })
-export class TodoEditComponent {
-  // @Output() getErrorMessageChild = new EventEmitter();
+export class TodoEditComponent implements OnInit {
   @Output() updateTodoChildEvent = new EventEmitter();
 
-  @Input() todoFormChild!: FormGroup;
   @Input() todoItemChild!: Todo;
 
   @Input() isDisabledChild!: true | null;
   @Input() tasksStatusChild: string = 'low';
   @Input() isCheckedChild: boolean = false;
 
-  // onErrorChildHandle() {
-  //   this.getErrorMessageChild.emit();
-  // }
+  formControlChild = new FormControl('', [Validators.required, Validators.minLength(3)])
+
+  ngOnInit() {
+    this.formControlChild.setValue(this.todoItemChild.name);
+  }
 
   onChildInputChange(todo: Todo, val: string) {
     this.updateTodoChildEvent.emit({id: todo.id, name: val});
@@ -51,11 +51,10 @@ export class TodoEditComponent {
   }
 
   getErrorMessage() {
-    console.log(this.todoFormChild)
-    if (this.todoFormChild.hasError('required')) {
+    if (this.formControlChild.hasError('required')) {
       return 'You must enter a value';
     }
 
-    return this.todoFormChild.hasError('minlength') ? 'Too short, should be at least 3 symbols' : '';
+    return this.formControlChild.hasError('minlength') ? 'Too short, should be at least 3 symbols' : '';
   }
 }
