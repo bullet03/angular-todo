@@ -1,16 +1,7 @@
-.textDepricated {
-  color: grey;
-  text-decoration: line-through;
+.formContainer {
+  display: flex;
 }
 
-.high {
-  background-color: red;
-}
-
-.medium {
-  background-color: yellow;
-}
-
-.low {
-  background-color: green;
+.wrapper {
+  display: flex;
 }

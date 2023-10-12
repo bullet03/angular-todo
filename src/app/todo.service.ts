@@ -29,9 +29,7 @@ export class TodoService {
   }
 
   updateTodo(todoItem: Todo): void {
-    // debugger
     this.todos = this.todos.map((todo) => {
-      console.log(todo.id === todoItem.id, todo.id, todoItem.id)
       if (todo.id === todoItem.id) {
         return todoItem;
       }

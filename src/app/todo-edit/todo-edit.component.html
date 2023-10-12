@@ -1,0 +1,15 @@
+<form [formGroup]="todoFormChild">
+  <mat-form-field>
+    <mat-label>Input</mat-label>
+    <input
+      matInput
+      [ngClass]="setClasses()"
+      type="text"
+      #inputRef
+      (change)="onChildInputChange(todoItemChild, inputRef.value)"
+      formControlName="todoItemForm"
+      [attr.disabled]="isDisabledChild"
+    >
+    <mat-error *ngIf="todoFormChild.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+</form>

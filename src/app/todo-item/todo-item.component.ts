@@ -33,32 +33,8 @@ export class TodoItemComponent implements OnInit {
     this.deleteTodoEvent.emit(todo);
   }
 
-  updateTodo(todo: Todo, val: string) {
-    this.updateTodoEvent.emit({id: todo.id, name: val});
-  }
-
-  setInputBackground() {
-    switch(this.taskStatus) {
-      case 'high':
-        return 'high';
-      case 'medium':
-        return 'medium';
-      case 'low':
-        return 'low';
-      default:
-        return '';
-    }
-  }
-
-  setInputDecorations() {
-    return this.isChecked ? 'textDepricated' : '';
-  }
-
-  setClasses() {
-    return {
-      [this.setInputDecorations()]: true,
-      [this.setInputBackground()]: true
-    };
+  updateTodo(todo: Todo) {
+    this.updateTodoEvent.emit(todo);
   }
 
   onCheckboxChange() {
@@ -68,13 +44,5 @@ export class TodoItemComponent implements OnInit {
 
   onSelectChange(event: Event) {
     this.taskStatus = (event.target as unknown as HTMLInputElement).value;
-  }
-
-  getErrorMessage() {
-    if (this.todoForm.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return this.todoForm.hasError('minlength') ? 'Too short, should be at least 3 symbols' : '';
   }
 }

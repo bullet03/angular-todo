@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TodosListComponent } from './todos-list/todos-list.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
+import { TodoEditComponent } from './todo-edit/todo-edit.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
     AppComponent,
     TaskFormComponent,
     TodosListComponent,
-    TodoItemComponent
+    TodoItemComponent,
+    TodoEditComponent
   ],
   imports: [
     BrowserModule,
