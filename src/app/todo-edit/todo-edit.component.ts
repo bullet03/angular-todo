@@ -9,12 +9,12 @@ import {FormGroup} from "@angular/forms";
 })
 export class TodoEditComponent {
   @Output() getErrorMessageChild = new EventEmitter();
-  // @Output() updateTodoChild = new EventEmitter();
+  @Output() updateTodoChildEvent = new EventEmitter();
   @Output() updateClassesChild = new EventEmitter();
 
   @Input() todoFormChild!: FormGroup;
   @Input() isDisabledChild!: true | null;
-  // @Input() todoItemChild!: Todo;
+  @Input() todoItemChild!: Todo;
 
   onErrorChildHandle() {
     this.getErrorMessageChild.emit();
@@ -24,7 +24,7 @@ export class TodoEditComponent {
     this.updateClassesChild.emit();
   }
 
-  // onChildInputChange(todo: Todo, val: string) {
-  //   this.updateTodoChild({id: todo.id, name: val});
-  // }
+  onChildInputChange(todo: Todo, val: string) {
+    this.updateTodoChildEvent.emit({id: todo.id, name: val});
+  }
 }

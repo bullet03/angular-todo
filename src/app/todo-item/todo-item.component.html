@@ -4,8 +4,9 @@
       <mat-checkbox [checked]="isChecked" (click)="onCheckboxChange()" color="primary">Done</mat-checkbox>
       <app-todo-edit
         [todoFormChild]="todoForm"
-        (getErrorMessageChild)="getErrorMessage()"
         [isDisabledChild]="isDisabled"
+        [todoItemChild]="todoItem"
+        (getErrorMessageChild)="getErrorMessage()"
         (updateClassesChild)="setClasses()"
       >
       </app-todo-edit>
