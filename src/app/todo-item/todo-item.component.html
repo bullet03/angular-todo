@@ -1,13 +1,13 @@
-<mat-card>
-  <mat-card-content>
-    <form [formGroup]="todoForm">
+<div [ngClass]="'wrapper'">
+    <form [formGroup]="todoForm" [ngClass]="'formContainer'">
       <mat-checkbox [checked]="isChecked" (click)="onCheckboxChange()" color="primary">Done</mat-checkbox>
       <app-todo-edit
         [todoFormChild]="todoForm"
         [isDisabledChild]="isDisabled"
         [todoItemChild]="todoItem"
-        (getErrorMessageChild)="getErrorMessage()"
-        (updateClassesChild)="setClasses()"
+        (updateTodoChildEvent)="updateTodo($event)"
+        [tasksStatusChild]="taskStatus"
+        [isCheckedChild]="isChecked"
       >
       </app-todo-edit>
       <mat-form-field>
@@ -19,6 +19,5 @@
         </select>
       </mat-form-field>
     </form>
-  </mat-card-content>
-</mat-card>
 <button mat-raised-button color="warn" (click)="deleteTodo(todoItem)">Delete Todo</button>
+</div>

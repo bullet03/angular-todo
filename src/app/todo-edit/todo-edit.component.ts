@@ -8,23 +8,54 @@ import {FormGroup} from "@angular/forms";
   styleUrls: ['./todo-edit.component.css']
 })
 export class TodoEditComponent {
-  @Output() getErrorMessageChild = new EventEmitter();
+  // @Output() getErrorMessageChild = new EventEmitter();
   @Output() updateTodoChildEvent = new EventEmitter();
-  @Output() updateClassesChild = new EventEmitter();
 
   @Input() todoFormChild!: FormGroup;
-  @Input() isDisabledChild!: true | null;
   @Input() todoItemChild!: Todo;
 
-  onErrorChildHandle() {
-    this.getErrorMessageChild.emit();
-  }
+  @Input() isDisabledChild!: true | null;
+  @Input() tasksStatusChild: string = 'low';
+  @Input() isCheckedChild: boolean = false;
 
-  onStylesChange():any {
-    this.updateClassesChild.emit();
-  }
+  // onErrorChildHandle() {
+  //   this.getErrorMessageChild.emit();
+  // }
 
   onChildInputChange(todo: Todo, val: string) {
     this.updateTodoChildEvent.emit({id: todo.id, name: val});
+  }
+
+  setInputBackground() {
+    switch(this.tasksStatusChild) {
+      case 'high':
+        return 'high';
+      case 'medium':
+        return 'medium';
+      case 'low':
+        return 'low';
+      default:
+        return '';
+    }
+  }
+
+  setInputDecorations() {
+    return this.isCheckedChild ? 'textDeprecated' : '';
+  }
+
+  setClasses() {
+    return {
+      [this.setInputDecorations()]: true,
+      [this.setInputBackground()]: true
+    };
+  }
+
+  getErrorMessage() {
+    console.log(this.todoFormChild)
+    if (this.todoFormChild.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.todoFormChild.hasError('minlength') ? 'Too short, should be at least 3 symbols' : '';
   }
 }
