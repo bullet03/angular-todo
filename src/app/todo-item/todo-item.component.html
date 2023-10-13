@@ -3,7 +3,7 @@
     <form [formGroup]="todoForm">
       <mat-checkbox [checked]="isChecked" (click)="onCheckboxChange()" color="primary">Done</mat-checkbox>
       <mat-form-field>
-        <mat-label>Input</mat-label>
+        <mat-label>Edit Todo</mat-label>
         <input
           matInput
           [ngClass]="setClasses()"
@@ -23,7 +23,8 @@
           <option value="high">High</option>
         </select>
       </mat-form-field>
+      <button type="button" (click)="goBack()">go back</button>
     </form>
   </mat-card-content>
 </mat-card>
-<button mat-raised-button color="warn" (click)="deleteTodo(todoItem)">Delete Todo</button>
+

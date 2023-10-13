@@ -20,6 +20,12 @@ export class TodoService {
     return this.todos;
   }
 
+  getTodo(id: string) {
+    return this.todos.find((todo) => {
+      return todo.id === id
+    });
+  }
+
   addTodo(todo: Todo): void {
     this.todos.push(todo);
   }
@@ -29,9 +35,7 @@ export class TodoService {
   }
 
   updateTodo(todoItem: Todo): void {
-    // debugger
     this.todos = this.todos.map((todo) => {
-      console.log(todo.id === todoItem.id, todo.id, todoItem.id)
       if (todo.id === todoItem.id) {
         return todoItem;
       }

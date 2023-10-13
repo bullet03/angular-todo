@@ -1,11 +1,7 @@
 <app-task-form (newItemEvent)="addTodo($event)"></app-task-form>
-<mat-grid-list cols="1" rowHeight="200px">
-  <mat-grid-tile *ngFor="let todo of todosList">
-    <app-todo-item
-      [todoItem]="todo"
-      (updateTodoEvent)="updateTodo($event)"
-      (deleteTodoEvent)="deleteTodo(todo)"
-    >
-    </app-todo-item>
-  </mat-grid-tile>
-</mat-grid-list>
+<ul>
+  <li *ngFor="let todo of todosList">
+    <a routerLink="/todo/{{todo.id}}">{{todo.name}}</a>
+    <button (click)="deleteTodo(todo)">Delete Todo</button>
+  </li>
+</ul>
