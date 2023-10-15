@@ -1,0 +1,9 @@
+.textDeprecated {
+  color: grey;
+  text-decoration: line-through;
+}
+.listItem {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+}

@@ -12,13 +12,12 @@ import {map} from "rxjs";
   styleUrls: ['./todo-item.component.css']
 })
 export class TodoItemComponent implements OnInit {
+  inputName: string = '';
   todoItem!: Todo;
-
   isChecked: boolean = false;
   isDisabled: true | null =  null;
   taskStatus: string = 'low';
   todoId: string = ''
-
   todoForm: FormGroup = new FormGroup({
     todoItemForm: new FormControl('', [Validators.required, Validators.minLength(3)])
   });
@@ -34,8 +33,8 @@ export class TodoItemComponent implements OnInit {
   constructor(private todoService: TodoService, private location: Location, private route: ActivatedRoute,) {
   }
 
-  updateTodo(todo: Todo, val: string) {
-    this.todoService.updateTodo({id: todo.id, name: val});
+  onInputChange(val: string) {
+    this.inputName = val;
   }
 
   setInputBackground() {
@@ -81,5 +80,9 @@ export class TodoItemComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  onSubmit() {
+    this.todoService.updateTodo({id: this.todoItem.id, name: this.inputName, complete: false});
   }
 }

@@ -1,7 +1,14 @@
 <app-task-form (newItemEvent)="addTodo($event)"></app-task-form>
-<ul>
-  <li *ngFor="let todo of todosList">
-    <a routerLink="/todo/{{todo.id}}">{{todo.name}}</a>
-    <button (click)="deleteTodo(todo)">Delete Todo</button>
-  </li>
-</ul>
+<mat-list role="list">
+  <mat-divider></mat-divider>
+  <mat-list-item role="listitem" *ngFor="let todo of todosList">
+    <div [class]="'listItem'">
+      <mat-checkbox color="primary" [checked]="todo.complete" (click)="onCheckboxChange(todo)"></mat-checkbox>
+      <a mat-button routerLink="/todo/{{todo.id}}" [ngClass]="toggleDeprecatedClass(todo.complete)">{{todo.name}}</a>
+      <button mat-mini-fab color="warn" aria-label="delete todo" (click)="deleteTodo(todo)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</mat-list>
