@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { TodoService } from "../todo.service";
-import { Todo } from "../todo";
-import { v4 as uuidv4 } from "uuid";
+import {Component, OnInit} from '@angular/core';
+import {TodoService} from "../todo.service";
+import {priorities, Todo} from "../todo";
+import {v4 as uuidv4} from "uuid";
 
 @Component({
   selector: 'app-todos-list',
@@ -26,7 +26,7 @@ export class TodosListComponent implements OnInit  {
   }
 
   addTodo(todoName: string) {
-    this.todoService.addTodo({id: uuidv4(), name: todoName, complete: false });
+    this.todoService.addTodo({id: uuidv4(), name: todoName, complete: false, priority: priorities.low });
     this.getTodosList();
   }
 
@@ -36,5 +36,18 @@ export class TodosListComponent implements OnInit  {
   onCheckboxChange(todo: Todo) {
     this.todoService.updateTodo({...todo, complete: !todo.complete});
     this.getTodosList();
+  }
+
+  setBackgroundColorClass(priority: priorities) {
+    switch (priority) {
+      case priorities.high:
+        return 'highPriority'
+      case priorities.medium:
+        return 'mediumPriority'
+      case priorities.low:
+        return 'lowPriority'
+      default:
+        return 'lowPriority'
+    }
   }
 }

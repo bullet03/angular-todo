@@ -1,10 +1,11 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup, Validators, FormBuilder} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import { Location } from '@angular/common';
+import {Location} from '@angular/common';
 import {TodoService} from "../todo.service";
-import {Todo} from "../todo";
+import {priorities, Todo} from "../todo";
 import {map} from "rxjs";
+import {MatSelectChange} from "@angular/material/select";
 
 @Component({
   selector: 'app-todo-item',
@@ -14,12 +15,13 @@ import {map} from "rxjs";
 export class TodoItemComponent implements OnInit {
   inputName: string = '';
   todoItem!: Todo;
-  isChecked: boolean = false;
-  isDisabled: true | null =  null;
-  taskStatus: string = 'low';
+  isDisabled: boolean =  true;
+  isComplete!: boolean;
+  todoPriority = priorities.low;
   todoId: string = ''
   todoForm: FormGroup = new FormGroup({
-    todoItemForm: new FormControl('', [Validators.required, Validators.minLength(3)])
+    todoItemInputForm: new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(3)]),
+    todoItemCheckboxForm: new FormControl({value: true, disabled: true})
   });
 
   ngOnInit() {
@@ -27,7 +29,11 @@ export class TodoItemComponent implements OnInit {
       this.todoId = result;
     });
     this.todoItem = this.todoService.getTodo(this.todoId) as Todo;
-    this.todoForm.setValue({todoItemForm: this.todoItem!.name});
+    this.todoForm.setValue({todoItemInputForm: this.todoItem!.name, todoItemCheckboxForm: this.todoItem!.complete});
+
+    this.inputName = this.todoItem.name;
+    this.todoPriority = this.todoItem.priority;
+    this.isComplete = this.todoItem.complete;
   }
 
   constructor(private todoService: TodoService, private location: Location, private route: ActivatedRoute,) {
@@ -37,37 +43,36 @@ export class TodoItemComponent implements OnInit {
     this.inputName = val;
   }
 
-  setInputBackground() {
-    switch(this.taskStatus) {
-      case 'high':
-        return 'high';
-      case 'medium':
-        return 'medium';
-      case 'low':
-        return 'low';
+  setBackgroundColorClass() {
+    switch (this.todoPriority) {
+      case priorities.high:
+        return 'highPriority'
+      case priorities.medium:
+        return 'mediumPriority'
+      case priorities.low:
+        return 'lowPriority'
       default:
-        return '';
+        return 'lowPriority'
     }
   }
 
   setInputDecorations() {
-    return this.isChecked ? 'textDepricated' : '';
+    return this.isComplete? 'textDeprecated' : '';
   }
 
   setClasses() {
     return {
       [this.setInputDecorations()]: true,
-      [this.setInputBackground()]: true
+      [this.setBackgroundColorClass()]: true
     };
   }
 
   onCheckboxChange() {
-    this.isChecked = !this.isChecked;
-    this.isDisabled = this.isDisabled ? null : true
+    this.isComplete = !this.isComplete;
   }
 
-  onSelectChange(event: Event) {
-    this.taskStatus = (event.target as unknown as HTMLInputElement).value;
+  onSelectChange(event: MatSelectChange) {
+    this.todoPriority = event.value;
   }
 
   getErrorMessage() {
@@ -83,6 +88,33 @@ export class TodoItemComponent implements OnInit {
   }
 
   onSubmit() {
-    this.todoService.updateTodo({id: this.todoItem.id, name: this.inputName, complete: false});
+    console.log(this.isComplete, 'isDisabled');
+    console.log(this.isComplete, 'isDisabled');
+    this.todoService.updateTodo({
+      id: this.todoItem.id,
+      name: this.inputName,
+      complete: this.isComplete,
+      priority: this.todoPriority
+    });
+    this.disableControl();
+  }
+
+  disableControl() {
+    this.todoForm.get('todoItemInputForm')?.disable();
+    this.todoForm.get('todoItemCheckboxForm')?.disable();
+    this.isDisabled = !this.isDisabled;
+  }
+
+  enableControl() {
+    this.todoForm.get('todoItemInputForm')?.enable();
+    this.todoForm.get('todoItemCheckboxForm')?.enable();
+    this.isDisabled = !this.isDisabled;
+  }
+
+  resetValues() {
+    this.inputName = this.todoItem.name;
+    this.todoPriority = this.todoItem.priority;
+    this.isComplete = this.todoItem.complete;
+    this.todoForm.setValue({todoItemInputForm: this.todoItem!.name, todoItemCheckboxForm: this.todoItem!.complete});
   }
 }
