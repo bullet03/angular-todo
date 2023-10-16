@@ -1,7 +1,12 @@
 <mat-card>
   <mat-card-content>
-    <form [formGroup]="todoForm">
-      <mat-checkbox [checked]="isChecked" (click)="onCheckboxChange()" color="primary">Done</mat-checkbox>
+    <form [formGroup]="todoForm" (submit)="onSubmit()">
+      <mat-checkbox
+        (click)="onCheckboxChange()"
+        color="primary"
+        aria-label="mark todo as done"
+        formControlName="todoItemCheckboxForm"
+      ></mat-checkbox>
       <mat-form-field>
         <mat-label>Edit Todo</mat-label>
         <input
@@ -9,22 +14,30 @@
           [ngClass]="setClasses()"
           type="text"
           #inputRef
-          (change)="updateTodo(todoItem, inputRef.value)"
-          formControlName="todoItemForm"
-          [attr.disabled]="isDisabled"
+          (change)="onInputChange(inputRef.value)"
+          formControlName="todoItemInputForm"
         >
         <mat-error *ngIf="todoForm.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Priorities</mat-label>
-        <select matNativeControl required (change)="onSelectChange($event)" [disabled]="isChecked">
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
+        <mat-select
+          matNativeControl
+          required
+          (selectionChange)="onSelectChange($event)"
+          [disabled]="isDisabled"
+          [value]="todoPriority"
+        >
+          <mat-option value="low">Low</mat-option>
+          <mat-option value="medium">Medium</mat-option>
+          <mat-option value="high">High</mat-option>
+        </mat-select>
       </mat-form-field>
-      <button type="button" (click)="goBack()">go back</button>
+      <button mat-stroked-button type="button" [disabled]="!isDisabled" (click)="enableControl()">Edit</button>
+      <button mat-stroked-button type="submit" [disabled]="isDisabled" (click)="resetValues()">Reset</button>
+      <button mat-stroked-button type="submit" [disabled]="isDisabled">Save</button>
     </form>
   </mat-card-content>
 </mat-card>
+<button mat-stroked-button type="button" (click)="goBack()">go back</button>
 

@@ -1,16 +1,16 @@
-.textDepricated {
+.textDeprecated {
   color: grey;
   text-decoration: line-through;
 }
 
-.high {
-  background-color: red;
+.highPriority {
+  background-color: indianred;
 }
 
-.medium {
-  background-color: yellow;
+.mediumPriority {
+  background-color: lightyellow;
 }
 
-.low {
-  background-color: green;
+.lowPriority {
+  background-color: darkseagreen;
 }

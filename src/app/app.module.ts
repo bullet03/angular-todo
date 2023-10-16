@@ -18,6 +18,9 @@ import { TaskFormComponent } from './task-form/task-form.component';
 import { TodosListComponent } from './todos-list/todos-list.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {MatListModule} from "@angular/material/list";
+import {MatIconModule} from "@angular/material/icon";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -40,7 +43,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MatButtonModule,
     MatGridListModule,
     MatCardModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatListModule,
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

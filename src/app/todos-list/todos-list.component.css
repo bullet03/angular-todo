@@ -1,0 +1,24 @@
+.textDeprecated {
+  color: grey;
+  text-decoration: line-through;
+}
+
+.listItemContainer {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.highPriority {
+  background-color: indianred;
+}
+
+.mediumPriority {
+  background-color: lightyellow;
+}
+
+.lowPriority {
+  background-color: darkseagreen;
+}
+
