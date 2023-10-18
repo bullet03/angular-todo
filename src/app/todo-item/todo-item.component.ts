@@ -28,12 +28,15 @@ export class TodoItemComponent implements OnInit {
     this.route.params.pipe(map((param) => param['id'])).subscribe((result) => {
       this.todoId = result;
     });
-    this.todoItem = this.todoService.getTodo(this.todoId) as Todo;
-    this.todoForm.setValue({todoItemInputForm: this.todoItem!.name, todoItemCheckboxForm: this.todoItem!.complete});
-
-    this.inputName = this.todoItem.name;
-    this.todoPriority = this.todoItem.priority;
-    this.isComplete = this.todoItem.complete;
+    // this.todoItem = this.todoService.getTodo(this.todoId) as Todo;
+    this.todoService.getTodo(this.todoId)
+      .subscribe((todo) => {
+        this.todoItem = todo;
+        this.todoForm.setValue({todoItemInputForm: this.todoItem!.name, todoItemCheckboxForm: this.todoItem!.complete});
+        this.inputName = this.todoItem.name;
+        this.todoPriority = this.todoItem.priority;
+        this.isComplete = this.todoItem.complete;
+      });
   }
 
   constructor(private todoService: TodoService, private location: Location, private route: ActivatedRoute,) {
@@ -88,15 +91,15 @@ export class TodoItemComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.isComplete, 'isDisabled');
-    console.log(this.isComplete, 'isDisabled');
     this.todoService.updateTodo({
       id: this.todoItem.id,
       name: this.inputName,
       complete: this.isComplete,
       priority: this.todoPriority
-    });
-    this.disableControl();
+    })
+      .subscribe(() => {
+        this.disableControl();
+      })
   }
 
   disableControl() {

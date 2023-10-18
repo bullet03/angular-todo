@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { TODOS } from './mock-todos';
 import { Todo } from "./todo";
 
@@ -6,40 +7,38 @@ import { Todo } from "./todo";
   providedIn: 'root'
 })
 export class TodoService {
-  todos: Todo[] = [];
-  constructor() {
-    this.init();
-  }
+  private heroesUrl = 'http://localhost:3000/';
+  constructor(private http: HttpClient) {}
 
-  init() {
-    this.todos = TODOS;
-  }
-
-  getTodos(): Todo[] {
-    console.log(this.todos, 'this todos');
-    return this.todos;
+  getTodos() {
+    return this.http.get<Todo[]>('http://localhost:3000/todoItems/');
   }
 
   getTodo(id: string) {
-    return this.todos.find((todo) => {
-      return todo.id === id
-    });
+    // return this.todos.find((todo) => {
+    //   return todo.id === id
+    // });
+    return this.http.get<Todo>(`http://localhost:3000/todoItems/${id}`);
   }
 
-  addTodo(todo: Todo): void {
-    this.todos.push(todo);
+  addTodo(todo: Todo) {
+    // this.todos.push(todo);
+    return this.http.post<Todo>(`http://localhost:3000/todoItems/`, todo);
   }
 
-  deleteTodo(todo: Todo): void {
-    this.todos = this.todos.filter(({name, id}) => id !== todo.id)
+  deleteTodo(todo: Todo) {
+    // this.todos = this.todos.filter(({name, id}) => id !== todo.id)
+    return this.http.delete(`http://localhost:3000/todoItems/${todo.id}`);
   }
 
-  updateTodo(todoItem: Todo): void {
-    this.todos = this.todos.map((todo) => {
-      if (todo.id === todoItem.id) {
-        return todoItem;
-      }
-      return todo;
-    });
+  updateTodo(todo: Todo) {
+    // this.todos = this.todos.map((todo) => {
+    //   if (todo.id === todoItem.id) {
+    //     return todoItem;
+    //   }
+    //   return todo;
+    // });
+    console.log(todo, 'incomeTodo');
+    return this.http.put<Todo>(`http://localhost:3000/todoItems/${todo.id}`, todo)
   }
 }

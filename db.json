@@ -1,0 +1,22 @@
+{
+  "todoItems": [
+    {
+      "id": "0f1860kn-f56h-4b1c-850f-6fa93df73b90",
+      "name": "Go Shopping",
+      "complete": false,
+      "priority": "low"
+    },
+    {
+      "id": "0f1828f4-a1ac-nh78-850f-6fa93df73d34",
+      "name": "Go swimming",
+      "complete": false,
+      "priority": "low"
+    },
+    {
+      "id": "0f1828f4-af5c-4b1c-850f-6fa93df44h88",
+      "name": "Go running",
+      "complete": true,
+      "priority": "medium"
+    }
+  ]
+}

@@ -17,25 +17,42 @@ export class TodosListComponent implements OnInit  {
   }
 
   getTodosList() {
-    this.todosList = this.todoService.getTodos();
+    this.todoService.getTodos().subscribe((todoItems) => {
+      this.todosList = todoItems;
+    })
   }
 
   deleteTodo(todo: Todo) {
-    this.todoService.deleteTodo(todo);
-    this.getTodosList();
+    this.todoService.deleteTodo(todo)
+      .subscribe((todos) => {
+        this.todosList = this.todosList.filter(({id}) => id !== todo.id)
+      });
   }
 
   addTodo(todoName: string) {
-    this.todoService.addTodo({id: uuidv4(), name: todoName, complete: false, priority: priorities.low });
-    this.getTodosList();
+    this.todoService.addTodo({id: uuidv4(), name: todoName, complete: false, priority: priorities.low })
+      .subscribe((todo) => {
+        this.todosList.push(todo);
+      });
   }
 
   toggleDeprecatedClass(isComplete: boolean) {
     return isComplete ? 'textDeprecated' : '';
   }
-  onCheckboxChange(todo: Todo) {
-    this.todoService.updateTodo({...todo, complete: !todo.complete});
-    this.getTodosList();
+
+  onCheckboxChange(todoItem: Todo) {
+    const newTodo = {...todoItem, complete: !todoItem.complete};
+    // this.todoService.updateTodo({...todo, complete: !todo.complete});
+    // this.getTodosList();
+    this.todoService.updateTodo(newTodo)
+      .subscribe((todo) => {
+        this.todosList = this.todosList.map((todo) => {
+          if (todo.id === newTodo.id) {
+            return newTodo;
+          }
+          return todo;
+        })
+      })
   }
 
   setBackgroundColorClass(priority: priorities) {
