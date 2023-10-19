@@ -4,8 +4,7 @@
   <mat-list-item role="listitem" *ngFor="let todo of todosList">
     <div [class]="'listItemContainer'">
       <mat-checkbox color="primary" [checked]="todo.complete" (click)="onCheckboxChange(todo)" aria-label="mark todo as done"></mat-checkbox>
-      <a mat-button
-         routerLink="/todo/{{todo.id}}"
+      <div
          [ngClass]="{
            'textDeprecated': toggleDeprecatedClass(todo.complete),
            'highPriority': setBackgroundColorClass(todo.priority) === 'highPriority',
@@ -14,6 +13,14 @@
          }"
       >
         {{todo.name}}
+      </div>
+      <a
+        mat-mini-fab
+        routerLink="/todo/{{todo.id}}"
+        color="warn"
+        aria-label="edit todo"
+      >
+        <mat-icon>edit</mat-icon>
       </a>
       <button
         mat-mini-fab color="warn"

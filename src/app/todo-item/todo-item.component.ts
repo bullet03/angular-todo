@@ -99,6 +99,7 @@ export class TodoItemComponent implements OnInit {
     })
       .subscribe(() => {
         this.disableControl();
+        this.goBack();
       })
   }
 
