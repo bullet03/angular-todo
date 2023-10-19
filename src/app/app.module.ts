@@ -22,6 +22,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSelectModule} from "@angular/material/select";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatListModule,
     MatIconModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

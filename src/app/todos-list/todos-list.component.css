@@ -7,7 +7,17 @@
   display: flex;
   gap: 20px;
   align-items: center;
-  padding-top: 10px;
+  padding: 10px;
+}
+
+.actionItems {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.textTodo {
+
 }
 
 .highPriority {
