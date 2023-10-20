@@ -44,14 +44,21 @@ export class TodosListComponent implements OnInit  {
       });
   }
 
+  restoreTodo(todoItem: Todo) {
+    const restoredTodo = {...todoItem, complete: false, softDeleted: false};
+    this.todoService.updateTodo(restoredTodo)
+      .subscribe((todo) => {
+        this.todosList.push(todo);
+        this.todosListDeleted = this.todosListDeleted.filter((todoItem) => todoItem.id !== todo.id);
+      })
+  }
+
   toggleDeprecatedClass(isComplete: boolean) {
     return isComplete ? 'textDeprecated' : '';
   }
 
   onCheckboxChange(todoItem: Todo) {
     const newTodo = {...todoItem, complete: !todoItem.complete};
-    // this.todoService.updateTodo({...todo, complete: !todo.complete});
-    // this.getTodosList();
     this.todoService.updateTodo(newTodo)
       .subscribe((todo) => {
         this.todosList = this.todosList.map((todo) => {

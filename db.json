@@ -17,8 +17,15 @@
     {
       "id": "0f1828f4-af5c-4b1c-850f-6fa93df44h88",
       "name": "Go running",
-      "complete": true,
+      "complete": false,
       "priority": "medium",
+      "softDeleted": false
+    },
+    {
+      "id": "0o9828f4-af5c-4b6k-850f-6fa93dr34h88",
+      "name": "Go skating",
+      "complete": false,
+      "priority": "high",
       "softDeleted": false
     }
   ]
