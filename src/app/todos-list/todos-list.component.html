@@ -35,4 +35,37 @@
     </div>
   </mat-list-item>
   <mat-divider></mat-divider>
+  <mat-list-item role="listitem" *ngFor="let todo of todosList">
+    <div [class]="'listItemContainer'">
+      <mat-checkbox color="primary" [checked]="todo.complete" (click)="onCheckboxChange(todo)" aria-label="mark todo as done"></mat-checkbox>
+      <div
+        [ngClass]="{
+           'textDeprecated': toggleDeprecatedClass(todo.complete),
+           'highPriority': setBackgroundColorClass(todo.priority) === 'highPriority',
+           'mediumPriority': setBackgroundColorClass(todo.priority) === 'mediumPriority',
+           'lowPriority': setBackgroundColorClass(todo.priority) === 'lowPriority',
+           'textTodo': true,
+         }"
+      >
+        {{todo.name}}
+      </div>
+      <div [class]="'actionItems'">
+        <a
+          mat-mini-fab
+          routerLink="/todo/{{todo.id}}"
+          color="warn"
+          aria-label="edit todo"
+        >
+          <mat-icon>edit</mat-icon>
+        </a>
+        <button
+          mat-mini-fab color="warn"
+          aria-label="delete todo"
+          (click)="deleteTodo(todo)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-list-item>
 </mat-list>

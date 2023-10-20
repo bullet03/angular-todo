@@ -10,6 +10,7 @@ import {v4 as uuidv4} from "uuid";
 })
 export class TodosListComponent implements OnInit  {
   todosList: Todo[] = [];
+  todosListDeleted: Todo[] = [];
   constructor(private todoService: TodoService) {}
 
   ngOnInit() {
@@ -18,7 +19,14 @@ export class TodosListComponent implements OnInit  {
 
   getTodosList() {
     this.todoService.getTodos().subscribe((todoItems) => {
-      this.todosList = todoItems;
+      // this.todosList = todoItems;
+      todoItems.map((todoItem: Todo) => {
+        if (todoItem.softDeleted) {
+          this.todosListDeleted.push(todoItem);
+        } else {
+          this.todosList.push(todoItem);
+        }
+      })
     })
   }
 
@@ -30,7 +38,7 @@ export class TodosListComponent implements OnInit  {
   }
 
   addTodo(todoName: string) {
-    this.todoService.addTodo({id: uuidv4(), name: todoName, complete: false, priority: priorities.low })
+    this.todoService.addTodo({id: uuidv4(), name: todoName, complete: false, priority: priorities.low, softDeleted: false })
       .subscribe((todo) => {
         this.todosList.push(todo);
       });

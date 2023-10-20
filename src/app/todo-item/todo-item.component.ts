@@ -95,7 +95,8 @@ export class TodoItemComponent implements OnInit {
       id: this.todoItem.id,
       name: this.inputName,
       complete: this.isComplete,
-      priority: this.todoPriority
+      priority: this.todoPriority,
+      softDeleted: false,
     })
       .subscribe(() => {
         this.disableControl();
