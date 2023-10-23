@@ -1,8 +1,3 @@
-.textDeprecated {
-  color: grey;
-  text-decoration: line-through;
-}
-
 .highPriority {
   background-color: indianred;
 }
@@ -13,4 +8,10 @@
 
 .lowPriority {
   background-color: darkseagreen;
+}
+
+.textDeprecated {
+  color: grey;
+  text-decoration: line-through;
+  background-color: aliceblue;
 }

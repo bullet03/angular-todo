@@ -10,6 +10,7 @@ import {v4 as uuidv4} from "uuid";
 })
 export class TodosListComponent implements OnInit  {
   todosList: Todo[] = [];
+  todosListDeleted: Todo[] = [];
   constructor(private todoService: TodoService) {}
 
   ngOnInit() {
@@ -18,7 +19,13 @@ export class TodosListComponent implements OnInit  {
 
   getTodosList() {
     this.todoService.getTodos().subscribe((todoItems) => {
-      this.todosList = todoItems;
+      todoItems.map((todoItem: Todo) => {
+        if (todoItem.softDeleted) {
+          this.todosListDeleted.push(todoItem);
+        } else {
+          this.todosList.push(todoItem);
+        }
+      })
     })
   }
 
@@ -30,10 +37,19 @@ export class TodosListComponent implements OnInit  {
   }
 
   addTodo(todoName: string) {
-    this.todoService.addTodo({id: uuidv4(), name: todoName, complete: false, priority: priorities.low })
+    this.todoService.addTodo({id: uuidv4(), name: todoName, complete: false, priority: priorities.low, softDeleted: false })
       .subscribe((todo) => {
         this.todosList.push(todo);
       });
+  }
+
+  restoreTodo(todoItem: Todo) {
+    const restoredTodo = {...todoItem, complete: false, softDeleted: false};
+    this.todoService.updateTodo(restoredTodo)
+      .subscribe((todo) => {
+        this.todosList.push(todo);
+        this.todosListDeleted = this.todosListDeleted.filter((todoItem) => todoItem.id !== todo.id);
+      })
   }
 
   toggleDeprecatedClass(isComplete: boolean) {
@@ -41,17 +57,13 @@ export class TodosListComponent implements OnInit  {
   }
 
   onCheckboxChange(todoItem: Todo) {
-    const newTodo = {...todoItem, complete: !todoItem.complete};
-    // this.todoService.updateTodo({...todo, complete: !todo.complete});
-    // this.getTodosList();
+    const newTodo = {...todoItem, complete: !todoItem.complete, softDeleted: true};
     this.todoService.updateTodo(newTodo)
       .subscribe((todo) => {
-        this.todosList = this.todosList.map((todo) => {
-          if (todo.id === newTodo.id) {
-            return newTodo;
-          }
-          return todo;
-        })
+        this.todosList = this.todosList.filter((todo) => {
+          return todo.id !== todoItem.id;
+        });
+        this.todosListDeleted.push(newTodo);
       })
   }
 

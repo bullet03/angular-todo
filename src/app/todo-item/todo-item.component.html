@@ -34,10 +34,9 @@
         </mat-select>
       </mat-form-field>
       <button mat-stroked-button type="button" [disabled]="!isDisabled" (click)="enableControl()">Edit</button>
-      <button mat-stroked-button type="submit" [disabled]="isDisabled" (click)="resetValues()">Reset</button>
+      <button mat-stroked-button type="button" [disabled]="isDisabled" (click)="resetValues()">Reset</button>
       <button mat-stroked-button type="submit" [disabled]="isDisabled">Save</button>
     </form>
   </mat-card-content>
 </mat-card>
 <button mat-stroked-button type="button" (click)="goBack()">go back</button>
-

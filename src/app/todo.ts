@@ -3,10 +3,11 @@ export interface Todo {
   name: string;
   complete: boolean;
   priority: priorities;
+  softDeleted: boolean;
 }
 
 export enum priorities {
   low = 'low',
   medium = 'medium',
-  high = 'high'
+  high = 'high',
 }
