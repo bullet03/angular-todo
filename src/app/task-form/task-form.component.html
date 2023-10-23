@@ -5,11 +5,11 @@
     <mat-error *ngIf="task.invalid">{{getErrorMessage()}}</mat-error>
   </mat-form-field>
   <button
-    mat-raised-button
+    mat-mini-fab
     color="primary"
     type="submit"
     [disabled]="task.value!.length < 3"
   >
-    Add Task
+    <mat-icon>add</mat-icon>
   </button>
 </form>

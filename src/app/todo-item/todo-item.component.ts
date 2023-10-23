@@ -17,6 +17,7 @@ export class TodoItemComponent implements OnInit {
   todoItem!: Todo;
   isDisabled: boolean =  true;
   isComplete!: boolean;
+  isSoftDeleted: boolean = false;
   todoPriority = priorities.low;
   todoId: string = ''
   todoForm: FormGroup = new FormGroup({
@@ -28,7 +29,6 @@ export class TodoItemComponent implements OnInit {
     this.route.params.pipe(map((param) => param['id'])).subscribe((result) => {
       this.todoId = result;
     });
-    // this.todoItem = this.todoService.getTodo(this.todoId) as Todo;
     this.todoService.getTodo(this.todoId)
       .subscribe((todo) => {
         this.todoItem = todo;
@@ -72,6 +72,7 @@ export class TodoItemComponent implements OnInit {
 
   onCheckboxChange() {
     this.isComplete = !this.isComplete;
+    this.isSoftDeleted = !this.isSoftDeleted;
   }
 
   onSelectChange(event: MatSelectChange) {
@@ -96,7 +97,7 @@ export class TodoItemComponent implements OnInit {
       name: this.inputName,
       complete: this.isComplete,
       priority: this.todoPriority,
-      softDeleted: false,
+      softDeleted: this.isSoftDeleted,
     })
       .subscribe(() => {
         this.disableControl();

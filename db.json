@@ -4,7 +4,7 @@
       "id": "0f1860kn-f56h-4b1c-850f-6fa93df73b90",
       "name": "Go Shopping",
       "complete": false,
-      "priority": "medium",
+      "priority": "low",
       "softDeleted": false
     },
     {
@@ -26,6 +26,20 @@
       "name": "Go skating",
       "complete": false,
       "priority": "high",
+      "softDeleted": false
+    },
+    {
+      "id": "0b9e8bb5-cfaf-4d43-9980-8b3eac025eae",
+      "name": "Go sleeping",
+      "complete": false,
+      "priority": "low",
+      "softDeleted": false
+    },
+    {
+      "id": "51d518d6-ff67-4f05-8fee-d5ef15e2530a",
+      "name": "Go rrrrrrrrrrrrrrrrrrrrrrrrring",
+      "complete": false,
+      "priority": "low",
       "softDeleted": false
     }
   ]

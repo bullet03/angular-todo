@@ -1,6 +1,13 @@
+.contentWrapper {
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+}
+
 .textDeprecated {
   color: grey;
   text-decoration: line-through;
+  background-color: aliceblue;
 }
 
 .listItemContainer {
@@ -16,6 +23,19 @@
   gap: 10px;
 }
 
+.itemsWrapper {
+  border: 2px solid darkgrey;
+  max-width: 1000px;
+
+  > p {
+    padding: 10px;
+  }
+}
+
+.description {
+  padding: 10px;
+  flex: 1;
+}
 
 .highPriority {
   background-color: indianred;

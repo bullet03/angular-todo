@@ -26,7 +26,6 @@ export class TodoService {
   }
 
   updateTodo(todo: Todo) {
-    console.log(todo, 'incomeTodo');
     return this.http.put<Todo>(`${this.heroesUrl}/${todo.id}`, todo)
   }
 }

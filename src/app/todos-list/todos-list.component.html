@@ -1,22 +1,24 @@
 <app-task-form (newItemEvent)="addTodo($event)"></app-task-form>
-<mat-list role="list">
-
-  <mat-divider></mat-divider>
-  <mat-toolbar><span>Todo</span></mat-toolbar>
-  <mat-list-item role="listitem" *ngFor="let todo of todosList">
-    <div [class]="'listItemContainer'">
-      <mat-checkbox color="primary" [checked]="todo.complete" (click)="onCheckboxChange(todo)" aria-label="mark todo as done"></mat-checkbox>
-      <div
-         [ngClass]="{
+<div [className]="'contentWrapper'">
+  <div [className]="'itemsWrapper'">
+    <mat-toolbar>
+      <span>To do</span>
+    </mat-toolbar>
+    <p *ngIf="todosList.length === 0">List is Empty</p>
+    <div *ngFor="let todo of todosList">
+      <div [class]="'listItemContainer'">
+        <mat-checkbox color="primary" [checked]="todo.complete" (click)="onCheckboxChange(todo)" aria-label="mark todo as done"></mat-checkbox>
+        <div
+          [ngClass]="{
            'textDeprecated': toggleDeprecatedClass(todo.complete),
            'highPriority': setBackgroundColorClass(todo.priority) === 'highPriority',
            'mediumPriority': setBackgroundColorClass(todo.priority) === 'mediumPriority',
            'lowPriority': setBackgroundColorClass(todo.priority) === 'lowPriority',
-           'textTodo': true,
+           'description': true
          }"
-      >
-        {{todo.name}}
-      </div>
+        >
+          {{todo.name}}
+        </div>
       <div [class]="'actionItems'">
         <a
           mat-mini-fab
@@ -35,34 +37,33 @@
         </button>
       </div>
     </div>
-  </mat-list-item>
-
-  <mat-divider></mat-divider>
-  <mat-toolbar><span>Done</span></mat-toolbar>
-  <mat-list-item role="listitem" *ngFor="let todo of todosListDeleted">
-    <div [class]="'listItemContainer'">
-      <mat-checkbox color="primary" [checked]="todo.complete" (click)="onCheckboxChange(todo)" aria-label="mark todo as done"></mat-checkbox>
-      <div
-        [ngClass]="{
-           'textDeprecated': toggleDeprecatedClass(todo.softDeleted),
-           'highPriority': setBackgroundColorClass(todo.priority) === 'highPriority',
-           'mediumPriority': setBackgroundColorClass(todo.priority) === 'mediumPriority',
-           'lowPriority': setBackgroundColorClass(todo.priority) === 'lowPriority',
-           'textTodo': true,
-         }"
-      >
-        {{todo.name}}
-      </div>
-      <div [class]="'actionItems'">
-        <button
-          mat-mini-fab color="warn"
-          aria-label="delete todo"
-          (click)="restoreTodo(todo)"
-        >
-          <mat-icon>restore_page</mat-icon>
-        </button>
-      </div>
     </div>
-  </mat-list-item>
-
-</mat-list>
+  </div>
+  <div [className]="'itemsWrapper'">
+    <mat-toolbar>
+      <span>Done</span>
+    </mat-toolbar>
+    <p *ngIf="todosListDeleted.length === 0">List is Empty</p>
+    <div *ngFor="let todo of todosListDeleted">
+      <div [class]="'listItemContainer'">
+        <div
+          [ngClass]="{
+           'textDeprecated': toggleDeprecatedClass(todo.softDeleted),
+           'description': true
+         }"
+        >
+          {{todo.name}}
+        </div>
+        <div [class]="'actionItems'">
+          <button
+            mat-mini-fab color="warn"
+            aria-label="delete todo"
+            (click)="restoreTodo(todo)"
+          >
+            <mat-icon>restore_page</mat-icon>
+          </button>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>

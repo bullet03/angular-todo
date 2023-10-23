@@ -19,7 +19,6 @@ export class TodosListComponent implements OnInit  {
 
   getTodosList() {
     this.todoService.getTodos().subscribe((todoItems) => {
-      // this.todosList = todoItems;
       todoItems.map((todoItem: Todo) => {
         if (todoItem.softDeleted) {
           this.todosListDeleted.push(todoItem);
@@ -58,15 +57,13 @@ export class TodosListComponent implements OnInit  {
   }
 
   onCheckboxChange(todoItem: Todo) {
-    const newTodo = {...todoItem, complete: !todoItem.complete};
+    const newTodo = {...todoItem, complete: !todoItem.complete, softDeleted: true};
     this.todoService.updateTodo(newTodo)
       .subscribe((todo) => {
-        this.todosList = this.todosList.map((todo) => {
-          if (todo.id === newTodo.id) {
-            return newTodo;
-          }
-          return todo;
-        })
+        this.todosList = this.todosList.filter((todo) => {
+          return todo.id !== todoItem.id;
+        });
+        this.todosListDeleted.push(newTodo);
       })
   }
 
