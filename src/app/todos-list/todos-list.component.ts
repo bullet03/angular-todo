@@ -18,15 +18,14 @@ export class TodosListComponent implements OnInit  {
   }
 
   getTodosList() {
-    this.todoService.getTodos().subscribe((todoItems) => {
-      todoItems.map((todoItem: Todo) => {
-        if (todoItem.softDeleted) {
-          this.todosListDeleted.push(todoItem);
-        } else {
-          this.todosList.push(todoItem);
-        }
+    this.todoService.getTodos({softDeleted: true})
+      .subscribe((todoItems) => {
+        this.todosListDeleted = todoItems;
       })
-    })
+    this.todoService.getTodos({softDeleted: false})
+      .subscribe((todoIems) => {
+        this.todosList = todoIems;
+      })
   }
 
   deleteTodo(todo: Todo) {

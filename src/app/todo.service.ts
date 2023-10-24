@@ -9,8 +9,11 @@ export class TodoService {
   private heroesUrl = 'http://localhost:3000/todoItems/';
   constructor(private http: HttpClient) {}
 
-  getTodos() {
-    return this.http.get<Todo[]>(this.heroesUrl);
+  getTodos(filterOptions: {} = {}) {
+    const key = Object.keys(filterOptions)[0];
+    const value = Object.values(filterOptions)[0];
+    const finalUrl = Object.keys(filterOptions).length > 0 ? `${this.heroesUrl}/?${key}=${value}` : this.heroesUrl;
+    return this.http.get<Todo[]>(finalUrl);
   }
 
   getTodo(id: string) {
