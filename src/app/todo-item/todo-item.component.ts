@@ -80,11 +80,11 @@ export class TodoItemComponent implements OnInit {
   }
 
   getErrorMessage() {
-    if (this.todoForm.hasError('required')) {
+    const formEl = this.todoForm.controls['todoItemInputForm'];
+    if (formEl.hasError('required')) {
       return 'You must enter a value';
     }
-
-    return this.todoForm.hasError('minlength') ? 'Too short, should be at least 3 symbols' : '';
+    return formEl.hasError('minlength') ? 'Too short, should be at least 3 symbols' : '';
   }
 
   goBack(): void {
