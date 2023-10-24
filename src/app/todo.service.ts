@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Todo } from "./todo";
+import {calculateUrlWithParams} from "../helpers/calculateUrl";
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,7 @@ export class TodoService {
   constructor(private http: HttpClient) {}
 
   getTodos(filterOptions: {} = {}) {
-    const key = Object.keys(filterOptions)[0];
-    const value = Object.values(filterOptions)[0];
-    const finalUrl = Object.keys(filterOptions).length > 0 ? `${this.heroesUrl}/?${key}=${value}` : this.heroesUrl;
+    const finalUrl = calculateUrlWithParams(this.heroesUrl, filterOptions);
     return this.http.get<Todo[]>(finalUrl);
   }
 

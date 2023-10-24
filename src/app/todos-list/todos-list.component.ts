@@ -23,8 +23,8 @@ export class TodosListComponent implements OnInit  {
         this.todosListDeleted = todoItems;
       })
     this.todoService.getTodos({softDeleted: false})
-      .subscribe((todoIems) => {
-        this.todosList = todoIems;
+      .subscribe((todoItems) => {
+        this.todosList = todoItems;
       })
   }
 
