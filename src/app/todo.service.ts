@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Todo } from "./todo";
 import {calculateUrlWithParams} from "../helpers/calculateUrl";
+import {catchError, Observable, of, retry} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -12,22 +13,45 @@ export class TodoService {
 
   getTodos(filterOptions: {} = {}) {
     const finalUrl = calculateUrlWithParams(this.heroesUrl, filterOptions);
-    return this.http.get<Todo[]>(finalUrl);
+    return this.http.get<Todo[]>(finalUrl).pipe(
+      retry(2),
+      catchError(this.handleError('getTodos'))
+    );
   }
 
   getTodo(id: string) {
-    return this.http.get<Todo>(`${this.heroesUrl}/${id}`);
+    return this.http.get<Todo>(`${this.heroesUrl}/${id}`).pipe(
+      retry(2),
+      catchError(this.handleError('get Todo'))
+    );
   }
 
   addTodo(todo: Todo) {
-    return this.http.post<Todo>(this.heroesUrl, todo);
+    return this.http.post<Todo>(this.heroesUrl, todo).pipe(
+      retry(2),
+      catchError(this.handleError('add Todo'))
+    );
   }
 
   deleteTodo(todo: Todo) {
-    return this.http.delete(`${this.heroesUrl}/${todo.id}`);
+    return this.http.delete(`${this.heroesUrl}/${todo.id}`).pipe(
+      retry(2),
+      catchError(this.handleError('delete Todo'))
+    );
   }
 
   updateTodo(todo: Todo) {
-    return this.http.put<Todo>(`${this.heroesUrl}/${todo.id}`, todo)
+    return this.http.put<Todo>(`${this.heroesUrl}/${todo.id}`, todo).pipe(
+      retry(2),
+      catchError(this.handleError('update Todo'))
+    );
+  }
+
+  private handleError(operation = 'operation') {
+    return(error: HttpErrorResponse):Observable<any> => {
+      console.error(error);
+      console.log(`${operation} failed: ${error.message}`)
+      return of();
+    }
   }
 }
