@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TodoService} from "../todo.service";
 import {priorities, Todo} from "../todo";
 import {v4 as uuidv4} from "uuid";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-todos-list',
@@ -11,7 +12,7 @@ import {v4 as uuidv4} from "uuid";
 export class TodosListComponent implements OnInit  {
   todosList: Todo[] = [];
   todosListDeleted: Todo[] = [];
-  constructor(private todoService: TodoService) {}
+  constructor(private todoService: TodoService, private toastr: ToastrService) {}
 
   ngOnInit() {
     this.getTodosList();
@@ -31,7 +32,8 @@ export class TodosListComponent implements OnInit  {
   deleteTodo(todo: Todo) {
     this.todoService.deleteTodo(todo)
       .subscribe((todos) => {
-        this.todosList = this.todosList.filter(({id}) => id !== todo.id)
+        this.todosList = this.todosList.filter(({id}) => id !== todo.id);
+        this.toastr.warning("Todo was deleted",'Warning');
       });
   }
 
@@ -39,6 +41,7 @@ export class TodosListComponent implements OnInit  {
     this.todoService.addTodo({id: uuidv4(), name: todoName, complete: false, priority: priorities.low, softDeleted: false })
       .subscribe((todo) => {
         this.todosList.push(todo);
+        this.toastr.success("Todo was added",'Success');
       });
   }
 
@@ -48,6 +51,7 @@ export class TodosListComponent implements OnInit  {
       .subscribe((todo) => {
         this.todosList.push(todo);
         this.todosListDeleted = this.todosListDeleted.filter((todoItem) => todoItem.id !== todo.id);
+        this.toastr.success("Todo was restored",'Success');
       })
   }
 
