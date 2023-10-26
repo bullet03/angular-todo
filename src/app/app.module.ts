@@ -18,6 +18,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from "@angular/material/select";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { TaskFormComponent } from './task-form/task-form.component';
@@ -51,7 +52,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MatSelectModule,
     HttpClientModule,
     MatToolbarModule,
-    ToastrModule.forRoot({closeButton: true})
+    MatSnackBarModule,
+    ToastrModule.forRoot({closeButton: true}),
   ],
   providers: [],
   bootstrap: [AppComponent]
