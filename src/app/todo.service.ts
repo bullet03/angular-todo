@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Todo } from "./todo";
 import {calculateUrlWithParams} from "../helpers/calculateUrl";
-import {catchError, Observable, of, retry} from "rxjs";
+import {catchError, Observable, of, retry, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -48,10 +48,10 @@ export class TodoService {
   }
 
   private handleError(operation = 'operation') {
-    return(error: HttpErrorResponse):Observable<any> => {
+    return(error: HttpErrorResponse) => {
       console.error(error);
       console.log(`${operation} failed: ${error.message}`)
-      return of();
+      return throwError(() => new Error());
     }
   }
 }

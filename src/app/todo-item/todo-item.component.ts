@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute} from "@angular/router";
 import {Location} from '@angular/common';
 import {TodoService} from "../todo.service";
@@ -39,7 +40,12 @@ export class TodoItemComponent implements OnInit {
       });
   }
 
-  constructor(private todoService: TodoService, private location: Location, private route: ActivatedRoute,) {
+  constructor(
+    private todoService: TodoService,
+    private location: Location,
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
+  ) {
   }
 
   onInputChange(val: string) {
@@ -100,6 +106,10 @@ export class TodoItemComponent implements OnInit {
       softDeleted: this.isSoftDeleted,
     })
       .subscribe(() => {
+        this.snackBar.open('Success', 'Todo changed', {
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+        });
         this.disableControl();
         this.goBack();
       })
